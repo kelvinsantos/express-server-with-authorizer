@@ -29,11 +29,34 @@ npm install body-parser
 Use the package within server.js:
 
 ```js
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 app.prepare().then(() => {
-  const server = express()
-  server.use(bodyParser.urlencoded({ extended: true }))
-  server.use(bodyParser.json())
-})
+    const server = express();
+    server.use(bodyParser.urlencoded({ extended: true }));
+    server.use(bodyParser.json());
+});
+```
+
+Sequence diagram:
+
+```bash
+https://mermaid-js.github.io/mermaid-live-editor
+
+sequenceDiagram
+    MTPremiumPage->>MTPremiumChartUI: render iframe
+    MTPremiumChartUI->>MTPremiumChartBE: validate host
+    MTPremiumChartBE->>MTPremiumChartBE: validate host
+    MTPremiumChartBE->>MTPremiumChartBE: validate ancestors
+    MTPremiumChartBE->>MTPremiumChartUI: host validated
+    MTPremiumChartUI-->>MTPremiumPage: return 200 response
+
+sequenceDiagram
+    MTPremiumPage->>MTPremiumChartUI: render iframe
+    MTPremiumChartUI->>MTPremiumChartBE: validate host
+    MTPremiumChartBE->>MTPremiumChartBE: validate host
+    MTPremiumChartBE->>MTPremiumChartBE: validate ancestors
+    MTPremiumChartBE->>MTPremiumChartUI: invalid host
+    MTPremiumChartUI-->>MTPremiumPage: return 401 response
+
 ```
